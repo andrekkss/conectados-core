@@ -1,18 +1,22 @@
 IF EXIST "./middleware" (
     goto :startDocker
-    if %ERRORLEVEL% == 0 goto :ifErrorExists
-    echo "Errors encountered during execution.  Exited with status: %errorlevel%"
-    goto :endScript
+    IF %ERRORLEVEL% == 0 (
+        goto :endScript
+    ) ELSE (
+        echo "Algo deu errado."
+    )
 ) ELSE (
-	CALL setup.bat
+	CALL ./utils/git-clone.bat
     goto :startDocker
 )
 
 :startDocker
-CALL docker-compose up
-
-:ifErrorExists
-echo "Algo deu errado."
+CALL docker --version
+IF %ERRORLEVEL% == 0 (
+   CALL docker-compose up
+) ELSE (
+    echo "docker nao existe"
+)
 
 :endScript
 echo "Hackea ae!"
