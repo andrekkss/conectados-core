@@ -1,0 +1,34 @@
+version: '3.6'
+
+services:
+  conectados-middleware:
+    build:
+      context: conectados-middleware
+      dockerfile: Dockerfile
+    volumes:
+    - ./conectados-middleware:/usr/middleware
+    depends_on:
+      - conectados-post
+    links:
+      - conectados-post
+    command: npm start
+    ports:
+    - 3000:3000
+
+  conectados-post:
+    build:
+      context: conectados-api
+      dockerfile: Dockerfile
+    volumes:
+    - ./conectados-api:/usr/post
+    command: npm start
+    ports:
+    - 3001:3001
+
+  conectados-db:
+    container_name: conectados-db
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
