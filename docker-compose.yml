@@ -24,3 +24,13 @@ services:
     command: npm start
     ports:
     - 3001:3001
+
+    conectados-client:
+      build:
+        context: client-service
+        dockerfile: Dockerfile
+      volumes:
+      - ./client-service:/usr/client
+      command: npm start
+      ports:
+      - 3001:3001
