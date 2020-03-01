@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  conectados-mongo:
+    image: mongo:latest
+    container_name: conectados-mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+      - mongoconfig:/data/configdb
+
+volumes:
+  mongodb:
+  mongoconfig:
