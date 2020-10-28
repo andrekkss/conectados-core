@@ -11,7 +11,7 @@ services:
       - conectados-post
     links:
       - conectados-post
-    command: npm start
+    command: npm run-script start:prod
     ports:
     - 3000:3000
 
@@ -21,7 +21,7 @@ services:
       dockerfile: Dockerfile
     volumes:
     - ./post-service:/usr/post
-    command: npm start
+    command: npm run-script start:prod
     ports:
     - 3001:3001
 
@@ -31,9 +31,9 @@ services:
       dockerfile: Dockerfile
     volumes:
     - ./client-service:/usr/client
-    command: npm start
+    command: npm run-script start:prod
     ports:
-    - 3001:3001
+    - 3002:3002
 
   conectados-mongo:
     image: mongo:latest
