@@ -25,12 +25,25 @@ services:
     ports:
     - 3001:3001
 
-    conectados-client:
-      build:
-        context: client-service
-        dockerfile: Dockerfile
-      volumes:
-      - ./client-service:/usr/client
-      command: npm start
-      ports:
-      - 3001:3001
+  conectados-client:
+    build:
+      context: client-service
+      dockerfile: Dockerfile
+    volumes:
+    - ./client-service:/usr/client
+    command: npm start
+    ports:
+    - 3001:3001
+
+  conectados-mongo:
+    image: mongo:latest
+    container_name: conectados-mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+      - mongoconfig:/data/configdb
+
+volumes:
+  mongodb:
+  mongoconfig:
