@@ -9,8 +9,10 @@ services:
     - ./middleware:/usr/middleware
     depends_on:
       - conectados-post
+      - conectados-client
     links:
       - conectados-post
+      - conectados-client
     command: npm run-script start:prod
     ports:
     - 3000:3000
@@ -21,6 +23,10 @@ services:
       dockerfile: Dockerfile
     volumes:
     - ./post-service:/usr/post
+    depends_on:
+      - conectados-mongo
+    links:
+      - conectados-mongo
     command: npm run-script start:prod
     ports:
     - 3001:3001
@@ -31,6 +37,10 @@ services:
       dockerfile: Dockerfile
     volumes:
     - ./client-service:/usr/client
+    depends_on:
+      - conectados-mongo
+    links:
+      - conectados-mongo
     command: npm run-script start:prod
     ports:
     - 3002:3002
@@ -38,6 +48,8 @@ services:
   conectados-mongo:
     image: mongo:latest
     container_name: conectados-mongo
+    logging:
+      driver: "none"
     ports:
       - 27017:27017
     volumes:
